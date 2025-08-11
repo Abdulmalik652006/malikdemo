@@ -1,50 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Bus Booking System</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Online Bus Booking</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #confirmation {
+      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e8f5e9;
+      border-radius: 8px;
+      border: 1px solid #c8e6c9;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>Online Bus Booking</h1>
-
+    
     <form id="bookingForm">
-      <label for="source">From:</label>
-      <input type="text" id="source" name="source" required>
+      <div class="form-group">
+        <label for="from">From</label>
+        <input type="text" id="from" placeholder="e.g. New York" required>
+      </div>
 
-      <label for="destination">To:</label>
-      <input type="text" id="destination" name="destination" required>
+      <div class="form-group">
+        <label for="to">To</label>
+        <input type="text" id="to" placeholder="e.g. Boston" required>
+      </div>
 
-      <label for="date">Travel Date:</label>
-      <input type="date" id="date" name="date" required>
+      <div class="form-group">
+        <label for="date">Travel Date</label>
+        <input type="date" id="date" required>
+      </div>
 
-      <label for="bus">Select Bus:</label>
-      <select id="bus" name="bus" required>
-        <option value="">--Select--</option>
-        <option value="Express Bus">Express Bus</option>
-        <option value="Sleeper Bus">Sleeper Bus</option>
-        <option value="Volvo AC">Volvo AC</option>
-      </select>
+      <div class="form-group">
+        <label for="passenger">Passenger Name</label>
+        <input type="text" id="passenger" required>
+      </div>
 
-      <label for="seats">Number of Seats:</label>
-      <input type="number" id="seats" name="seats" min="1" max="10" required>
+      <div class="form-group">
+        <label for="seats">Select Seat</label>
+        <select id="seats">
+          <option value="1A">1A</option>
+          <option value="2B">2B</option>
+          <option value="3C">3C</option>
+          <option value="4D">4D</option>
+        </select>
+      </div>
 
-      <label for="name">Passenger Name:</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-
-      <button type="submit">Book Now</button>
+      <button type="submit">Book Ticket</button>
     </form>
 
     <div id="confirmation" class="hidden">
       <h2>Booking Confirmed!</h2>
-      <p id="details"></p>
+      <p id="confirmationDetails"></p>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const date = document.getElementById('date').value;
+      const passenger = document.getElementById('passenger').value;
+      const seat = document.getElementById('seats').value;
+
+      const confirmation = document.getElementById('confirmation');
+      const details = document.getElementById('confirmationDetails');
+
+      details.innerHTML = `
+        <strong>Passenger:</strong> ${passenger} <br/>
+        <strong>Route:</strong> ${from} to ${to} <br/>
+        <strong>Date:</strong> ${date} <br/>
+        <strong>Seat:</strong> ${seat}
+      `;
+
+      confirmation.classList.remove('hidden');
+    });
+  </script>
 </body>
 </html>
